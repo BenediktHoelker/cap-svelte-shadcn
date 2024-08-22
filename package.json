@@ -4,14 +4,18 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
+		"start:dev": "cds-serve --profile dev",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"copy-svelte-build": "copyfiles build/**/* gen/srv"
 	},
 	"devDependencies": {
+		"@cap-js/cds-types": "^0.6",
+		"@cap-js/sqlite": "^1",
 		"@sveltejs/adapter-auto": "^3.0.0",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
@@ -33,9 +37,13 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sap/cds": "^8",
+		"@sap/xsenv": "^5.2.0",
+		"@sap/xssec": "^4.2.1",
 		"bits-ui": "^0.21.13",
 		"clsx": "^2.1.1",
 		"cmdk-sv": "^0.0.18",
+		"express": "^4.19.2",
 		"svelte-headless-table": "^0.18.2",
 		"svelte-radix": "^1.1.1",
 		"tailwind-merge": "^2.5.2",
