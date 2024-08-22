@@ -13,3 +13,11 @@ entity Books : cuid, managed {
 entity Authors : cuid, managed {
     name : String @title: 'Name';
 }
+
+entity Tasks : managed {
+    key id       : String;
+        title    : String;
+        status   : String;
+        label    : String;
+        priority : String
+}

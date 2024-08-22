@@ -23,9 +23,9 @@
 
 	import * as Table from '$lib/components/ui/table';
 
-	export let data: Task[];
+	export let tasks: Task[];
 
-	const table = createTable(readable(data), {
+	const table = createTable(readable(tasks), {
 		select: addSelectedRows(),
 		sort: addSortBy({
 			toggleOrder: ['asc', 'desc']
@@ -164,7 +164,7 @@
 </script>
 
 <div class="space-y-4">
-	<DataTableToolbar {tableModel} {data} />
+	<DataTableToolbar {tableModel} {tasks} />
 	<div class="rounded-md border">
 		<Table.Root {...$tableAttrs}>
 			<Table.Header>

@@ -9,9 +9,9 @@
 	import { Input } from '$lib/components/ui/input';
 
 	export let tableModel: TableViewModel<Task>;
-	export let data: Task[];
+	export let tasks: Task[];
 
-	const counts = data.reduce<{
+	const counts = tasks.reduce<{
 		status: { [index: string]: number };
 		priority: { [index: string]: number };
 	}>(

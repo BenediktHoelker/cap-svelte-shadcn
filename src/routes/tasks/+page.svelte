@@ -1,9 +1,11 @@
 <script lang="ts">
-	import DataTable from "./(components)/data-table.svelte";
-	import UserNav from "./(components)/user-nav.svelte";
-	import data from "./(data)/tasks.json";
-	import TasksLight from "$lib/img/examples/tasks-light.png?enhanced";
-	import TasksDark from "$lib/img/examples/tasks-dark.png?enhanced";
+	import DataTable from './(components)/data-table.svelte';
+	import UserNav from './(components)/user-nav.svelte';
+	// import data from './(data)/tasks.json';
+	import TasksLight from '$lib/img/examples/tasks-light.png?enhanced';
+	import TasksDark from '$lib/img/examples/tasks-dark.png?enhanced';
+
+	export let data;
 </script>
 
 <div class="md:hidden">
@@ -20,5 +22,5 @@
 			<UserNav />
 		</div>
 	</div>
-	<DataTable {data} />
+	<DataTable tasks={data.tasks} />
 </div>
