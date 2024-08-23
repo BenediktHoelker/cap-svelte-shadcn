@@ -19,5 +19,5 @@ entity Tasks : managed {
         title    : String;
         status   : String;
         label    : String;
-        priority : String
+        priority : String;
 }

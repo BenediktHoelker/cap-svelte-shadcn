@@ -8,6 +8,8 @@
 	import * as Select from '$lib/components/ui/select';
 	import { Button } from '$lib/components/ui/button';
 
+	import { goto } from '$app/navigation';
+
 	export let tableModel: TableViewModel<Task>;
 
 	const { pageRows, pluginStates, rows } = tableModel;
@@ -15,6 +17,8 @@
 	const { hasNextPage, hasPreviousPage, pageIndex, pageCount, pageSize } = pluginStates.page;
 
 	const { selectedDataIds } = pluginStates.select;
+
+	$: pageIndexURL = $pageIndex;
 </script>
 
 <div class="flex items-center justify-between px-2">
@@ -47,7 +51,10 @@
 			<Button
 				variant="outline"
 				class="hidden h-8 w-8 p-0 lg:flex"
-				on:click={() => ($pageIndex = 0)}
+				on:click={() => {
+					$pageIndex = 0;
+					goto(`/tasks/${$pageIndex + 1}`);
+				}}
 				disabled={!$hasPreviousPage}
 			>
 				<span class="sr-only">Go to first page</span>
@@ -56,7 +63,10 @@
 			<Button
 				variant="outline"
 				class="h-8 w-8 p-0"
-				on:click={() => ($pageIndex = $pageIndex - 1)}
+				on:click={() => {
+					$pageIndex = $pageIndex - 1;
+					goto(`/tasks/${$pageIndex + 1}`);
+				}}
 				disabled={!$hasPreviousPage}
 			>
 				<span class="sr-only">Go to previous page</span>
@@ -66,7 +76,10 @@
 				variant="outline"
 				class="h-8 w-8 p-0"
 				disabled={!$hasNextPage}
-				on:click={() => ($pageIndex = $pageIndex + 1)}
+				on:click={() => {
+					$pageIndex = $pageIndex + 1;
+					goto(`/tasks/${$pageIndex + 1}`);
+				}}
 			>
 				<span class="sr-only">Go to next page</span>
 				<ChevronRight size={15} />
@@ -75,7 +88,10 @@
 				variant="outline"
 				class="hidden h-8 w-8 p-0 lg:flex"
 				disabled={!$hasNextPage}
-				on:click={() => ($pageIndex = Math.ceil($rows.length / $pageRows.length) - 1)}
+				on:click={() => {
+					$pageIndex = Math.ceil($rows.length / $pageRows.length) - 1;
+					goto(`/tasks/${$pageIndex}`);
+				}}
 			>
 				<span class="sr-only">Go to last page</span>
 				<DoubleArrowRight size={15} />

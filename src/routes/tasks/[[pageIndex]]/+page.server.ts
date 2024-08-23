@@ -3,11 +3,13 @@ import cds from '@sap/cds';
 const srv = await cds.connect.to('BookshopService');
 const Tasks = srv.entities('eon').Tasks;
 
-export async function load() {
+export async function load({ params }) {
+	console.log(params);
+	const pageIndex = Number(params.pageIndex) || 0;
 	const tasks = await SELECT.from(Tasks)
 		// .where(`title like '%${search}%'`)
-		.limit(5)
-		.orderBy('title');
+		.limit(10, pageIndex * 10)
+		.orderBy('id');
 	return {
 		tasks
 	};

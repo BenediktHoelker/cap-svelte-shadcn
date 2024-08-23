@@ -4,7 +4,7 @@
 		"title": "Try to calculate the EXE feed, maybe it will index the multi-byte pixel!",
 		"status": "backlog",
 		"label": "documentation",
-		"priority": "medium"
+		"priority": "high"
 	},
 	{
 		"id": "TASK-7839",
@@ -352,9 +352,9 @@
 	{
 		"id": "TASK-1606",
 		"title": "I'll generate the bluetooth PNG firewall, that should pixel the SSL driver!",
-		"status": "done",
+		"status": "canceled",
 		"label": "feature",
-		"priority": "medium"
+		"priority": "high"
 	},
 	{
 		"id": "TASK-7872",

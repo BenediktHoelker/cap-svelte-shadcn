@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { get, readable } from 'svelte/store';
+	import { get, readable, writable, type Writable } from 'svelte/store';
+
+	import { getContext } from 'svelte';
 	import { Render, Subscribe, createRender, createTable } from 'svelte-headless-table';
 	import {
 		addColumnFilters,
@@ -23,15 +25,18 @@
 
 	import * as Table from '$lib/components/ui/table';
 
-	export let tasks: Task[];
+	const tasks: Writable<Task[]> = getContext('tasks');
 
-	const table = createTable(readable(tasks), {
+	const table = createTable(tasks, {
 		select: addSelectedRows(),
 		sort: addSortBy({
+			// serverSide: true,
 			toggleOrder: ['asc', 'desc']
 		}),
-		page: addPagination(),
+		// ToDo: serverItemCount = Total of server-items => load initially
+		page: addPagination({ serverSide: true, serverItemCount: writable(200) }),
 		filter: addTableFilter({
+			// serverSide: true,
 			fn: ({ filterValue, value }) => {
 				return value.toLowerCase().includes(filterValue.toLowerCase());
 			}
@@ -158,13 +163,18 @@
 		})
 	]);
 
+	const { rows, pluginStates } = table.createViewModel(columns);
+	const { sortKeys } = pluginStates.sort;
+	const { filterValue } = pluginStates.filter;
+	// const { pageSize, pageIndex } = pluginStates.pageSize;
+
 	const tableModel = table.createViewModel(columns);
 
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = tableModel;
 </script>
 
 <div class="space-y-4">
-	<DataTableToolbar {tableModel} {tasks} />
+	<DataTableToolbar {tableModel} bind:tasks={$tasks} />
 	<div class="rounded-md border">
 		<Table.Root {...$tableAttrs}>
 			<Table.Header>
