@@ -3,8 +3,7 @@ import cds from '@sap/cds';
 const srv = await cds.connect.to('BookshopService');
 const Tasks = srv.entities('eon').Tasks;
 
-export async function load({ params }) {
-	const { limit } = params;
+export async function load() {
 	const tasks = await SELECT.from(Tasks)
 		// .where(`title like '%${search}%'`)
 		.limit(5)

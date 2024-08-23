@@ -2,17 +2,17 @@
 	import DataTable from './(components)/data-table.svelte';
 	import UserNav from './(components)/user-nav.svelte';
 	// import data from './(data)/tasks.json';
-	import TasksLight from '$lib/img/examples/tasks-light.png?enhanced';
-	import TasksDark from '$lib/img/examples/tasks-dark.png?enhanced';
+	import TasksLight from '$lib/img/examples/tasks-light.png';
+	import TasksDark from '$lib/img/examples/tasks-dark.png';
 
 	export let data;
 </script>
 
-<div class="md:hidden">
+<div class="sm:hidden">
 	<enhanced:img src={TasksLight} alt="Tasks" class="block dark:hidden" />
 	<enhanced:img src={TasksDark} alt="Tasks" class="hidden dark:block" />
 </div>
-<div class="hidden h-full flex-1 flex-col space-y-8 p-8 md:flex">
+<div class="flex h-full flex-1 flex-col space-y-8 p-8">
 	<div class="flex items-center justify-between space-y-2">
 		<div>
 			<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
