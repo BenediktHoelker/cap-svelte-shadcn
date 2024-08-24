@@ -1,7 +1,19 @@
 <script lang="ts">
 	import { get, readable, writable, type Writable } from 'svelte/store';
 
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
+
+	import { browser } from '$app/environment';
+
+	let stick = false;
+	// if (browser) {
+	// 	window.addEventListener('scroll', (event) => {
+	// 		// console.log(window.scrollY);
+	// 		stick = window.scrollY > 0;
+	// 		console.log(stick);
+	// 	});
+	// }
+
 	import { Render, Subscribe, createRender, createTable } from 'svelte-headless-table';
 	import {
 		addColumnFilters,
@@ -170,11 +182,20 @@
 	tableModel.pluginStates.page.pageSize.set(50);
 
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = tableModel;
+
+	// let stick = false;
+	// let scrollY = 0;
+	// let y = 0; //down
+	// $: stick = y > 31;
+	// $: console.log(`the scrollY is ${scrollY}`);
 </script>
+
+<!-- <svelte:window bind:scrollY /> -->
 
 <div class="space-y-4">
 	<DataTableToolbar {tableModel} bind:tasks={$tasks} />
-	<div class="rounded-md border">
+	<!-- <div> -->
+	<div class="rounded-md border-b">
 		<Table.Root {...$tableAttrs}>
 			<Table.Body {...$tableBodyAttrs} class="z-10">
 				{#if $pageRows.length}
@@ -205,10 +226,10 @@
 				{/if}
 			</Table.Body>
 			<!-- thead needs to be below tbody, otherwise the checkbox in sticky header will shine throug. WEIRD BUG! https://stackoverflow.com/questions/47923240/opacity-issue-in-sticky-table-header-structure -->
-			<Table.Header class="z-60 shadow-2 sticky top-32 h-12 bg-white">
+			<Table.Header class="z-60 shadow-2 bg--100 sticky top-32 h-12 bg-gray-100">
 				{#each $headerRows as headerRow}
 					<Subscribe rowAttrs={headerRow.attrs()}>
-						<Table.Row>
+						<Table.Row class={stick ? 'invisibleBorder' : ''}>
 							{#each headerRow.cells as cell (cell.id)}
 								<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
 									<Table.Head {...attrs}>

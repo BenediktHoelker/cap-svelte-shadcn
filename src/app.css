@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* table th:first-child,
-table td:first-child {
-	Apply a left border on the first <td> or <th> in a row
-	border-left: 2px solid;
-} */
-
 @layer base {
 	:root {
 		--background: 0 0% 100%;
