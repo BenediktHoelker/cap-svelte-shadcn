@@ -180,6 +180,7 @@
 				{#if $pageRows.length}
 					{#each $pageRows as row (row.id)}
 						<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
+							<!-- <Table.Row {...rowAttrs} class="border-b-2 border-r-2"> -->
 							<Table.Row {...rowAttrs}>
 								{#each row.cells as cell (cell.id)}
 									<Subscribe attrs={cell.attrs()} let:attrs>
@@ -204,7 +205,7 @@
 				{/if}
 			</Table.Body>
 			<!-- thead needs to be below tbody, otherwise the checkbox in sticky header will shine throug. WEIRD BUG! https://stackoverflow.com/questions/47923240/opacity-issue-in-sticky-table-header-structure -->
-			<Table.Header class="z-60 sticky top-32 h-12 bg-white">
+			<Table.Header class="z-60 shadow-2 sticky top-32 h-12 bg-white">
 				{#each $headerRows as headerRow}
 					<Subscribe rowAttrs={headerRow.attrs()}>
 						<Table.Row>
