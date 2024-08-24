@@ -8,7 +8,7 @@ export async function load({ params }) {
 	const pageIndex = Number(params.pageIndex) || 0;
 	const tasks = await SELECT.from(Tasks)
 		// .where(`title like '%${search}%'`)
-		.limit(10, pageIndex * 10)
+		// .limit(10, pageIndex * 10)
 		.orderBy('id');
 	return {
 		tasks

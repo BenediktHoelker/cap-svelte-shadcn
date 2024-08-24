@@ -34,7 +34,9 @@
 			toggleOrder: ['asc', 'desc']
 		}),
 		// ToDo: serverItemCount = Total of server-items => load initially
-		page: addPagination({ serverSide: true, serverItemCount: writable(200) }),
+		page: addPagination({
+			// serverSide: true, serverItemCount: writable(200)
+		}),
 		filter: addTableFilter({
 			// serverSide: true,
 			fn: ({ filterValue, value }) => {
@@ -163,12 +165,9 @@
 		})
 	]);
 
-	const { rows, pluginStates } = table.createViewModel(columns);
-	const { sortKeys } = pluginStates.sort;
-	const { filterValue } = pluginStates.filter;
-	// const { pageSize, pageIndex } = pluginStates.pageSize;
-
 	const tableModel = table.createViewModel(columns);
+
+	tableModel.pluginStates.page.pageSize.set(50);
 
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = tableModel;
 </script>
@@ -177,28 +176,7 @@
 	<DataTableToolbar {tableModel} bind:tasks={$tasks} />
 	<div class="rounded-md border">
 		<Table.Root {...$tableAttrs}>
-			<Table.Header>
-				{#each $headerRows as headerRow}
-					<Subscribe rowAttrs={headerRow.attrs()}>
-						<Table.Row>
-							{#each headerRow.cells as cell (cell.id)}
-								<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
-									<Table.Head {...attrs}>
-										{#if cell.id !== 'select' && cell.id !== 'actions'}
-											<DataTableColumnHeader {props} {tableModel} cellId={cell.id}>
-												<Render of={cell.render()} /></DataTableColumnHeader
-											>
-										{:else}
-											<Render of={cell.render()} />
-										{/if}
-									</Table.Head>
-								</Subscribe>
-							{/each}
-						</Table.Row>
-					</Subscribe>
-				{/each}
-			</Table.Header>
-			<Table.Body {...$tableBodyAttrs}>
+			<Table.Body {...$tableBodyAttrs} class="z-10">
 				{#if $pageRows.length}
 					{#each $pageRows as row (row.id)}
 						<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
@@ -225,6 +203,28 @@
 					</Table.Row>
 				{/if}
 			</Table.Body>
+			<!-- thead needs to be below tbody, otherwise the checkbox in sticky header will shine throug. WEIRD BUG! https://stackoverflow.com/questions/47923240/opacity-issue-in-sticky-table-header-structure -->
+			<Table.Header class="z-60 sticky top-32 h-12 bg-white">
+				{#each $headerRows as headerRow}
+					<Subscribe rowAttrs={headerRow.attrs()}>
+						<Table.Row>
+							{#each headerRow.cells as cell (cell.id)}
+								<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
+									<Table.Head {...attrs}>
+										{#if cell.id !== 'select' && cell.id !== 'actions'}
+											<DataTableColumnHeader {props} {tableModel} cellId={cell.id}>
+												<Render of={cell.render()} /></DataTableColumnHeader
+											>
+										{:else}
+											<Render of={cell.render()} />
+										{/if}
+									</Table.Head>
+								</Subscribe>
+							{/each}
+						</Table.Row>
+					</Subscribe>
+				{/each}
+			</Table.Header>
 		</Table.Root>
 	</div>
 	<DataTablePagination {tableModel} />

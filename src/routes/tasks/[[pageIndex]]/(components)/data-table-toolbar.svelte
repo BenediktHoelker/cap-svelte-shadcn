@@ -45,7 +45,8 @@
 	$: showReset = Object.values({ ...$filterValues, $filterValue }).some((v) => v.length > 0);
 </script>
 
-<div class="flex items-center justify-between">
+<div class="sticky top-20 z-50 flex h-12 items-center justify-between bg-white">
+	<!-- <div class="flex items-center justify-between bg-white"> -->
 	<div class="flex flex-1 items-center space-x-2">
 		<Input
 			placeholder="Filter tasks..."

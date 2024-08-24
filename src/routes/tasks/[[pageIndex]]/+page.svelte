@@ -21,7 +21,8 @@
 	<enhanced:img src={TasksDark} alt="Tasks" class="hidden dark:block" />
 </div>
 <div class="flex h-full flex-1 flex-col space-y-8 p-8">
-	<div class="flex items-center justify-between space-y-2">
+	<!-- <div class="flex items-center justify-between space-y-2 bg-white"> -->
+	<div class="sticky top-0 z-50 flex h-20 items-center justify-between space-y-2 bg-white">
 		<div>
 			<h2 class="text-2xl font-bold tracking-tight">Welcome back!</h2>
 			<p class="text-muted-foreground">Here's a list of your tasks for this month!</p>
@@ -30,5 +31,7 @@
 			<UserNav />
 		</div>
 	</div>
-	<DataTable />
+	<div class="z-10">
+		<DataTable />
+	</div>
 </div>
