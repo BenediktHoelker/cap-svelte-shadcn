@@ -5,6 +5,8 @@
 
 	import { browser } from '$app/environment';
 
+	import { ScrollArea } from '$lib/components/ui/scroll-area';
+
 	let stick = false;
 	// if (browser) {
 	// 	window.addEventListener('scroll', (event) => {
@@ -194,8 +196,8 @@
 
 <div class="space-y-4">
 	<DataTableToolbar {tableModel} bind:tasks={$tasks} />
-	<!-- <div> -->
-	<div class="rounded-md border-b">
+	<!-- Solution for sticky header: https://github.com/shadcn-ui/ui/issues/1151#issuecomment-1806990817 -->
+	<ScrollArea class="h-[500px] rounded-md border-b">
 		<Table.Root {...$tableAttrs}>
 			<Table.Body {...$tableBodyAttrs} class="z-10">
 				{#if $pageRows.length}
@@ -226,7 +228,7 @@
 				{/if}
 			</Table.Body>
 			<!-- thead needs to be below tbody, otherwise the checkbox in sticky header will shine throug. WEIRD BUG! https://stackoverflow.com/questions/47923240/opacity-issue-in-sticky-table-header-structure -->
-			<Table.Header class="z-60 shadow-2 bg--100 sticky top-32 h-12 bg-gray-100">
+			<Table.Header class="z-60 bg-secondary sticky top-0 [&_tr]:border-b">
 				{#each $headerRows as headerRow}
 					<Subscribe rowAttrs={headerRow.attrs()}>
 						<Table.Row class={stick ? 'invisibleBorder' : ''}>
@@ -248,6 +250,6 @@
 				{/each}
 			</Table.Header>
 		</Table.Root>
-	</div>
+	</ScrollArea>
 	<DataTablePagination {tableModel} />
 </div>
