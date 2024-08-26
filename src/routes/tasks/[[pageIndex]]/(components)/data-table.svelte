@@ -3,8 +3,6 @@
 	import { getContext } from 'svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 
-	import RowInView from './row-in-view.svelte';
-
 	import { Render, Subscribe, createRender, createTable } from 'svelte-headless-table';
 	import {
 		addColumnFilters,
@@ -170,12 +168,10 @@
 
 	const tableModel = table.createViewModel(columns);
 
-	// tableModel.pluginStates.page.pageSize.set(50);
+	tableModel.pluginStates.page.pageSize.set(50);
 
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = tableModel;
 </script>
-
-<!-- <svelte:window bind:scrollY /> -->
 
 <div class="space-y-4">
 	<DataTableToolbar {tableModel} bind:tasks={$tasks} />
@@ -187,26 +183,21 @@
 					{#each $pageRows as row (row.id)}
 						<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
 							<!-- <Table.Row {...rowAttrs} class="border-b-2 border-r-2"> -->
-							<RowInView {rowAttrs} let:inView>
-								{#if inView}
-									{#each row.cells as cell (cell.id)}
-										<Subscribe attrs={cell.attrs()} let:attrs>
-											<Table.Cell {...attrs}>
-												{#if cell.id === 'task'}
-													<div class="w-[80px]">
-														<Render of={cell.render()} />
-													</div>
-												{:else}
+							<Table.Row {...rowAttrs}>
+								{#each row.cells as cell (cell.id)}
+									<Subscribe attrs={cell.attrs()} let:attrs>
+										<Table.Cell {...attrs}>
+											{#if cell.id === 'task'}
+												<div class="w-[80px]">
 													<Render of={cell.render()} />
-												{/if}
-											</Table.Cell>
-										</Subscribe>
-									{/each}
-								{:else}
-									<!-- Hidden rows placeholder -->
-									<div class="row-placeholder" />
-								{/if}
-							</RowInView>
+												</div>
+											{:else}
+												<Render of={cell.render()} />
+											{/if}
+										</Table.Cell>
+									</Subscribe>
+								{/each}
+							</Table.Row>
 						</Subscribe>
 					{/each}
 				{:else}
