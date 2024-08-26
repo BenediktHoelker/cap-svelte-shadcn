@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { get, type Writable } from 'svelte/store';
+	import { get, writable, type Writable } from 'svelte/store';
 	import { getContext } from 'svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 
@@ -31,15 +31,16 @@
 	const table = createTable(tasks, {
 		select: addSelectedRows(),
 		sort: addSortBy({
-			// serverSide: true,
+			serverSide: true,
 			toggleOrder: ['asc', 'desc']
 		}),
 		// ToDo: serverItemCount = Total of server-items => load initially
 		page: addPagination({
-			// serverSide: true, serverItemCount: writable(200)
+			serverSide: true,
+			serverItemCount: writable(200)
 		}),
 		filter: addTableFilter({
-			// serverSide: true,
+			serverSide: true,
 			fn: ({ filterValue, value }) => {
 				return value.toLowerCase().includes(filterValue.toLowerCase());
 			}
@@ -171,6 +172,21 @@
 	tableModel.pluginStates.page.pageSize.set(50);
 
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = tableModel;
+
+	const { rows, pluginStates } = table.createViewModel(columns);
+	const { sortKeys } = pluginStates.sort;
+	const { filterValue } = pluginStates.filter;
+	const { pageSize, pageIndex } = pluginStates.filter;
+
+	async function updateQuery() {
+		const q = new URLSearchParams();
+		q.set('order_by', $sortKeys[0].id);
+		q.set('order_dir', $sortKeys[0].order);
+		q.set('filter', $filterValue);
+		q.set('limit', String($pageSize));
+		q.set('skip', String($pageSize * $pageIndex));
+		let data = await fetch(`/api_endpoint?${q}`);
+	}
 </script>
 
 <div class="space-y-4">

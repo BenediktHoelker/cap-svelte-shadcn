@@ -3,7 +3,6 @@ import { building } from '$app/environment';
 
 import xssec from '@sap/xssec';
 import xsenv from '@sap/xsenv';
-
 let creds;
 
 if (!building) {

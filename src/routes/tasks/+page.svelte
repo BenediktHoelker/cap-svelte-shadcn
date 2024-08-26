@@ -7,6 +7,7 @@
 
 	import { writable } from 'svelte/store';
 	import { setContext } from 'svelte';
+	import { type Handle, redirect } from '@sveltejs/kit';
 
 	export let data;
 

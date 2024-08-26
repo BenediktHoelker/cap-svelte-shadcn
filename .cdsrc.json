@@ -15,7 +15,7 @@
             "[dev]": {
                 "kind": "sqlite",
                 "credentials": {
-                    "database": "todo"
+                    "database": "todo.sqlite"
                 }
             },
             "[hybrid]": {
