@@ -1,5 +1,5 @@
 import cds from '@sap/cds';
-import { createSamples } from './create-samples';
+import { createSamples } from '../../../../db/create-samples';
 
 const srv = await cds.connect.to('BookshopService');
 const Tasks = srv.entities('eon').Tasks;
