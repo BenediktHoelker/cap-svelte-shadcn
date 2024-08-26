@@ -18,7 +18,7 @@
 	import {
 		DataTableCheckbox,
 		DataTableColumnHeader,
-		// DataTablePagination,
+		DataTablePagination,
 		DataTablePriorityCell,
 		DataTableRowActions,
 		DataTableStatusCell,
@@ -37,9 +37,9 @@
 			toggleOrder: ['asc', 'desc']
 		}),
 		// ToDo: serverItemCount = Total of server-items => load initially
-		// page: addPagination({
-		// 	// serverSide: true, serverItemCount: writable(200)
-		// }),
+		page: addPagination({
+			// serverSide: true, serverItemCount: writable(200)
+		}),
 		filter: addTableFilter({
 			// serverSide: true,
 			fn: ({ filterValue, value }) => {
@@ -239,7 +239,7 @@
 			</Table.Header>
 		</Table.Root>
 	</ScrollArea>
-	<!-- <DataTablePagination {tableModel} /> -->
+	<DataTablePagination {tableModel} />
 </div>
 
 <style>
