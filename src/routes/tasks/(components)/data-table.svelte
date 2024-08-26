@@ -2,6 +2,8 @@
 	import { get, writable, type Writable } from 'svelte/store';
 	import { getContext } from 'svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
+	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
 
 	import { Render, Subscribe, createRender, createTable } from 'svelte-headless-table';
 	import {
@@ -40,10 +42,10 @@
 			serverItemCount: writable(200)
 		}),
 		filter: addTableFilter({
-			serverSide: true,
-			fn: ({ filterValue, value }) => {
-				return value.toLowerCase().includes(filterValue.toLowerCase());
-			}
+			serverSide: true
+			// fn: ({ filterValue, value }) => {
+			// 	return value.toLowerCase().includes(filterValue.toLowerCase());
+			// }
 		}),
 		colFilter: addColumnFilters(),
 		hide: addHiddenColumns()
@@ -169,30 +171,34 @@
 
 	const tableModel = table.createViewModel(columns);
 
-	tableModel.pluginStates.page.pageSize.set(50);
+	const { headerRows, pageRows, tableAttrs, tableBodyAttrs, pluginStates } = tableModel;
 
-	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = tableModel;
-
-	const { rows, pluginStates } = table.createViewModel(columns);
 	const { sortKeys } = pluginStates.sort;
 	const { filterValue } = pluginStates.filter;
-	const { pageSize, pageIndex } = pluginStates.filter;
+	const { filterValues } = pluginStates.colFilter;
+	const { pageSize, pageIndex } = pluginStates.page;
 
-	async function updateQuery() {
+	$: showReset = Object.values({ ...$filterValues, $filterValue }).some((v) => v.length > 0);
+	$: console.log($filterValue);
+	$: {
 		const q = new URLSearchParams();
-		q.set('order_by', $sortKeys[0].id);
-		q.set('order_dir', $sortKeys[0].order);
-		q.set('filter', $filterValue);
-		q.set('limit', String($pageSize));
-		q.set('skip', String($pageSize * $pageIndex));
-		let data = await fetch(`/api_endpoint?${q}`);
+		$sortKeys[0] && q.set('order_by', $sortKeys[0].id);
+		$sortKeys[0] && q.set('order_dir', $sortKeys[0].order);
+		// $filterValue && q.set('filter', $filterValue);
+		// $filterValues && q.set('filter', $filterValue);
+		$pageSize && q.set('limit', String($pageSize));
+		$pageSize && $pageIndex && q.set('skip', String($pageSize * $pageIndex));
+
+		if (browser) {
+			goto(`/tasks?${q}`);
+		}
 	}
 </script>
 
 <div class="space-y-4">
 	<DataTableToolbar {tableModel} bind:tasks={$tasks} />
 	<!-- Solution for sticky header: https://github.com/shadcn-ui/ui/issues/1151#issuecomment-1806990817 -->
-	<ScrollArea class="h-[500px] rounded-md border-b">
+	<ScrollArea class="h-[340px] rounded-md border-b">
 		<Table.Root {...$tableAttrs}>
 			<Table.Body {...$tableBodyAttrs}>
 				{#if $pageRows.length}
