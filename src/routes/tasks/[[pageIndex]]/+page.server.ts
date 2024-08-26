@@ -1,15 +1,18 @@
 import cds from '@sap/cds';
+import { createSamples } from './create-samples';
 
 const srv = await cds.connect.to('BookshopService');
 const Tasks = srv.entities('eon').Tasks;
 
 export async function load({ params }) {
 	console.log(params);
-	const pageIndex = Number(params.pageIndex) || 0;
-	const tasks = await SELECT.from(Tasks)
-		// .where(`title like '%${search}%'`)
-		// .limit(10, pageIndex * 10)
-		.orderBy('id');
+
+	const tasks = createSamples(100);
+	// const pageIndex = Number(params.pageIndex) || 0;
+	// const tasks = await SELECT.from(Tasks)
+	// 	// .where(`title like '%${search}%'`)
+	// 	// .limit(10, pageIndex * 10)
+	// 	.orderBy('id');
 	return {
 		tasks
 	};

@@ -1,20 +1,9 @@
 <script lang="ts">
-	import { get, readable, writable, type Writable } from 'svelte/store';
-
-	import { getContext, onMount } from 'svelte';
-
-	import { browser } from '$app/environment';
-
+	import { get, type Writable } from 'svelte/store';
+	import { getContext } from 'svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 
-	let stick = false;
-	// if (browser) {
-	// 	window.addEventListener('scroll', (event) => {
-	// 		// console.log(window.scrollY);
-	// 		stick = window.scrollY > 0;
-	// 		console.log(stick);
-	// 	});
-	// }
+	import RowInView from './row-in-view.svelte';
 
 	import { Render, Subscribe, createRender, createTable } from 'svelte-headless-table';
 	import {
@@ -29,7 +18,7 @@
 	import {
 		DataTableCheckbox,
 		DataTableColumnHeader,
-		DataTablePagination,
+		// DataTablePagination,
 		DataTablePriorityCell,
 		DataTableRowActions,
 		DataTableStatusCell,
@@ -48,9 +37,9 @@
 			toggleOrder: ['asc', 'desc']
 		}),
 		// ToDo: serverItemCount = Total of server-items => load initially
-		page: addPagination({
-			// serverSide: true, serverItemCount: writable(200)
-		}),
+		// page: addPagination({
+		// 	// serverSide: true, serverItemCount: writable(200)
+		// }),
 		filter: addTableFilter({
 			// serverSide: true,
 			fn: ({ filterValue, value }) => {
@@ -181,15 +170,9 @@
 
 	const tableModel = table.createViewModel(columns);
 
-	tableModel.pluginStates.page.pageSize.set(50);
+	// tableModel.pluginStates.page.pageSize.set(50);
 
 	const { headerRows, pageRows, tableAttrs, tableBodyAttrs } = tableModel;
-
-	// let stick = false;
-	// let scrollY = 0;
-	// let y = 0; //down
-	// $: stick = y > 31;
-	// $: console.log(`the scrollY is ${scrollY}`);
 </script>
 
 <!-- <svelte:window bind:scrollY /> -->
@@ -199,26 +182,31 @@
 	<!-- Solution for sticky header: https://github.com/shadcn-ui/ui/issues/1151#issuecomment-1806990817 -->
 	<ScrollArea class="h-[500px] rounded-md border-b">
 		<Table.Root {...$tableAttrs}>
-			<Table.Body {...$tableBodyAttrs} class="z-10">
+			<Table.Body {...$tableBodyAttrs}>
 				{#if $pageRows.length}
 					{#each $pageRows as row (row.id)}
 						<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
 							<!-- <Table.Row {...rowAttrs} class="border-b-2 border-r-2"> -->
-							<Table.Row {...rowAttrs}>
-								{#each row.cells as cell (cell.id)}
-									<Subscribe attrs={cell.attrs()} let:attrs>
-										<Table.Cell {...attrs}>
-											{#if cell.id === 'task'}
-												<div class="w-[80px]">
+							<RowInView {rowAttrs} let:inView>
+								{#if inView}
+									{#each row.cells as cell (cell.id)}
+										<Subscribe attrs={cell.attrs()} let:attrs>
+											<Table.Cell {...attrs}>
+												{#if cell.id === 'task'}
+													<div class="w-[80px]">
+														<Render of={cell.render()} />
+													</div>
+												{:else}
 													<Render of={cell.render()} />
-												</div>
-											{:else}
-												<Render of={cell.render()} />
-											{/if}
-										</Table.Cell>
-									</Subscribe>
-								{/each}
-							</Table.Row>
+												{/if}
+											</Table.Cell>
+										</Subscribe>
+									{/each}
+								{:else}
+									<!-- Hidden rows placeholder -->
+									<div class="row-placeholder" />
+								{/if}
+							</RowInView>
 						</Subscribe>
 					{/each}
 				{:else}
@@ -228,10 +216,10 @@
 				{/if}
 			</Table.Body>
 			<!-- thead needs to be below tbody, otherwise the checkbox in sticky header will shine throug. WEIRD BUG! https://stackoverflow.com/questions/47923240/opacity-issue-in-sticky-table-header-structure -->
-			<Table.Header class="z-60 bg-secondary sticky top-0 [&_tr]:border-b">
+			<Table.Header class="bg-secondary sticky top-0 [&_tr]:border-b">
 				{#each $headerRows as headerRow}
 					<Subscribe rowAttrs={headerRow.attrs()}>
-						<Table.Row class={stick ? 'invisibleBorder' : ''}>
+						<Table.Row>
 							{#each headerRow.cells as cell (cell.id)}
 								<Subscribe attrs={cell.attrs()} let:attrs props={cell.props()} let:props>
 									<Table.Head {...attrs}>
@@ -251,5 +239,12 @@
 			</Table.Header>
 		</Table.Root>
 	</ScrollArea>
-	<DataTablePagination {tableModel} />
+	<!-- <DataTablePagination {tableModel} /> -->
 </div>
+
+<style>
+	.row-placeholder {
+		height: 36.667px;
+		width: 0px;
+	}
+</style>
