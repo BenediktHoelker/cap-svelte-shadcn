@@ -184,7 +184,7 @@
 		const q = new URLSearchParams();
 		$sortKeys[0] && q.set('order_by', $sortKeys[0].id);
 		$sortKeys[0] && q.set('order_dir', $sortKeys[0].order);
-		// $filterValue && q.set('filter', $filterValue);
+		$filterValue && q.set('filter', $filterValue);
 		// $filterValues && q.set('filter', $filterValue);
 		$pageSize && q.set('limit', String($pageSize));
 		$pageSize && $pageIndex && q.set('skip', String($pageSize * $pageIndex));

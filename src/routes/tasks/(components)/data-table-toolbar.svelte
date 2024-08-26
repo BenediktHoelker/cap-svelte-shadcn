@@ -43,6 +43,8 @@
 	} = pluginStates.colFilter;
 
 	$: showReset = Object.values({ ...$filterValues, $filterValue }).some((v) => v.length > 0);
+
+	let value = '';
 </script>
 
 <div class="sticky top-20 z-50 flex h-12 items-center justify-between bg-white">
@@ -52,7 +54,8 @@
 			placeholder="Filter tasks..."
 			class="h-8 w-[150px] lg:w-[250px]"
 			type="search"
-			bind:value={$filterValue}
+			bind:value
+			on:change={(event) => ($filterValue = value)}
 		/>
 
 		<DataTableFacetedFilter
