@@ -15,6 +15,10 @@
 	const tasks = writable(null);
 	$: setContext('tasks', tasks);
 	$: tasks.set(data.tasks);
+
+	const taskItemCount = writable(null);
+	$: setContext('taskItemCount', taskItemCount);
+	$: taskItemCount.set(data.taskItemCount);
 </script>
 
 <div class="sm:hidden">

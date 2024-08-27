@@ -5,22 +5,25 @@ const Tasks = srv.entities('eon').Tasks;
 
 export async function load({ url }) {
 	const { searchParams } = url;
-	const filter = searchParams.get('filter') ? '%' + searchParams.get('filter') + '%' : '%';
+	const search = searchParams.get('search') ? '%' + searchParams.get('search') + '%' : '%';
+	// const filter = searchParams.get('filter') ? '%' + searchParams.get('filter') + '%' : '%';
 	const skip = Number(searchParams.get('skip')) || 0;
 	const top = Number(searchParams.get('limit')) || Number(searchParams.get('top')) || 10;
 	const orderBy = searchParams.get('order_by') || 'id';
 	const orderDir = searchParams.get('order_dir') || 'asc';
 
-	const tasksItemCountRes = await cds.run('SELECT count(*) from eon_Tasks');
+	const tasksItemCountRes = await cds.run(
+		`SELECT count(*) from eon_Tasks where title like '${search}'`
+	);
 	// TODO: Make reliable
-	const tasksItemCount = tasksItemCountRes[0]['count(*)'];
-	const tasks = await SELECT.from(Tasks).where`title like ${filter}`
+	const taskItemCount = tasksItemCountRes[0]['count(*)'];
+	const tasks = await SELECT.from(Tasks).where`title like ${search}`
 		.limit(top, skip)
 		.orderBy(orderBy + ' ' + orderDir);
 
 	return {
 		tasks,
-		tasksItemCount
+		taskItemCount: taskItemCount
 	};
 }
 

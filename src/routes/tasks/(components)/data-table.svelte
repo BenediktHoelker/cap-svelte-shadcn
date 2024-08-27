@@ -29,6 +29,7 @@
 	import * as Table from '$lib/components/ui/table';
 
 	const tasks: Writable<Task[]> = getContext('tasks');
+	const taskItemCount: Writable<number> = getContext('taskItemCount');
 
 	const table = createTable(tasks, {
 		select: addSelectedRows(),
@@ -39,7 +40,7 @@
 		// ToDo: serverItemCount = Total of server-items => load initially
 		page: addPagination({
 			serverSide: true,
-			serverItemCount: writable(200)
+			serverItemCount: taskItemCount
 		}),
 		filter: addTableFilter({
 			serverSide: true
@@ -178,14 +179,12 @@
 	const { filterValues } = pluginStates.colFilter;
 	const { pageSize, pageIndex } = pluginStates.page;
 
-	$: showReset = Object.values({ ...$filterValues, $filterValue }).some((v) => v.length > 0);
-	$: console.log($filterValue);
 	$: {
 		const q = new URLSearchParams();
 		$sortKeys[0] && q.set('order_by', $sortKeys[0].id);
 		$sortKeys[0] && q.set('order_dir', $sortKeys[0].order);
-		$filterValue && q.set('filter', $filterValue);
-		// $filterValues && q.set('filter', $filterValue);
+		$filterValue && q.set('search', $filterValue);
+		// $filterValues && q.set('filter', $filterValues);
 		$pageSize && q.set('limit', String($pageSize));
 		$pageSize && $pageIndex && q.set('skip', String($pageSize * $pageIndex));
 
