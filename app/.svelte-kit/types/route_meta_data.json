@@ -1,0 +1,21 @@
+{
+	"/": [],
+	"/forms": [
+		"src/routes/forms/+page.server.ts"
+	],
+	"/forms/account": [
+		"src/routes/forms/account/+page.server.ts"
+	],
+	"/forms/appearance": [
+		"src/routes/forms/appearance/+page.server.ts"
+	],
+	"/forms/display": [
+		"src/routes/forms/display/+page.server.ts"
+	],
+	"/forms/notifications": [
+		"src/routes/forms/notifications/+page.server.ts"
+	],
+	"/tasks": [
+		"src/routes/tasks/+page.server.ts"
+	]
+}
