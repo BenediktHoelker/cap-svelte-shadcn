@@ -1,21 +1,30 @@
 {
-	"/": [],
+	"/": [
+		"src/routes/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
 	"/forms": [
-		"src/routes/forms/+page.server.ts"
+		"src/routes/forms/+page.server.ts",
+		"src/routes/+layout.server.ts",
+		"src/routes/+layout.server.ts"
 	],
 	"/forms/account": [
-		"src/routes/forms/account/+page.server.ts"
+		"src/routes/forms/account/+page.server.ts",
+		"src/routes/+layout.server.ts"
 	],
 	"/forms/appearance": [
-		"src/routes/forms/appearance/+page.server.ts"
+		"src/routes/forms/appearance/+page.server.ts",
+		"src/routes/+layout.server.ts"
 	],
 	"/forms/display": [
-		"src/routes/forms/display/+page.server.ts"
+		"src/routes/forms/display/+page.server.ts",
+		"src/routes/+layout.server.ts"
 	],
 	"/forms/notifications": [
-		"src/routes/forms/notifications/+page.server.ts"
+		"src/routes/forms/notifications/+page.server.ts",
+		"src/routes/+layout.server.ts"
 	],
 	"/tasks": [
-		"src/routes/tasks/+page.server.ts"
+		"src/routes/+layout.server.ts"
 	]
 }

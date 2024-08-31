@@ -13,7 +13,7 @@ export const nodes = [
 	() => import('./nodes/9')
 ];
 
-export const server_loads = [];
+export const server_loads = [0];
 
 export const dictionary = {
 		"/": [3],
@@ -22,7 +22,7 @@ export const dictionary = {
 		"/forms/appearance": [~6,[2]],
 		"/forms/display": [~7,[2]],
 		"/forms/notifications": [~8,[2]],
-		"/tasks": [~9]
+		"/tasks": [9]
 	};
 
 export const hooks = {

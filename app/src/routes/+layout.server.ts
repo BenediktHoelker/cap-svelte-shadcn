@@ -27,10 +27,10 @@ export async function load({ url }) {
 	};
 }
 
-export const actions = {
-	default: async ({ request }) => {
-		const data = await request.formData();
-		const object = { ID: data.get('id'), title: data.get('title') };
-		await UPSERT(object).into(Tasks);
-	}
-};
+// export const actions = {
+// 	default: async ({ request }) => {
+// 		const data = await request.formData();
+// 		const object = { ID: data.get('id'), title: data.get('title') };
+// 		await UPSERT(object).into(Tasks);
+// 	}
+// };

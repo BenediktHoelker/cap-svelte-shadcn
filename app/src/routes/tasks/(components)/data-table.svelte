@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { get, writable, type Writable } from 'svelte/store';
+	import { get, type Writable } from 'svelte/store';
 	import { getContext } from 'svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import { goto } from '$app/navigation';
