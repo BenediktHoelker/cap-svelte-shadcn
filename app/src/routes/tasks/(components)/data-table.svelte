@@ -204,7 +204,14 @@
 					{#each $pageRows as row (row.id)}
 						<Subscribe rowAttrs={row.attrs()} let:rowAttrs>
 							<!-- <Table.Row {...rowAttrs} class="border-b-2 border-r-2"> -->
-							<Table.Row {...rowAttrs}>
+							<Table.Row
+								{...rowAttrs}
+								on:click={(e) => {
+									goto('/forms');
+									console.log(row.id);
+									// console.log(e);
+								}}
+							>
 								{#each row.cells as cell (cell.id)}
 									<Subscribe attrs={cell.attrs()} let:attrs>
 										<Table.Cell {...attrs}>
