@@ -189,7 +189,7 @@
 		$pageSize && $pageIndex && q.set('skip', String($pageSize * $pageIndex));
 
 		if (browser) {
-			goto(`/tasks?${q}`);
+			goto(`?${q}`);
 		}
 	}
 </script>
@@ -207,8 +207,9 @@
 							<Table.Row
 								{...rowAttrs}
 								on:click={(e) => {
-									goto('/forms');
-									console.log(row.id);
+									const slug = row.original.id;
+									goto(`/forms/${slug}`);
+									console.log(row);
 									// console.log(e);
 								}}
 							>

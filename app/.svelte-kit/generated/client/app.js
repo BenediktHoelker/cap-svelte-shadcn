@@ -9,20 +9,18 @@ export const nodes = [
 	() => import('./nodes/5'),
 	() => import('./nodes/6'),
 	() => import('./nodes/7'),
-	() => import('./nodes/8'),
-	() => import('./nodes/9')
+	() => import('./nodes/8')
 ];
 
 export const server_loads = [0];
 
 export const dictionary = {
 		"/": [3],
-		"/forms": [~4,[2]],
-		"/forms/account": [~5,[2]],
-		"/forms/appearance": [~6,[2]],
-		"/forms/display": [~7,[2]],
-		"/forms/notifications": [~8,[2]],
-		"/tasks": [9]
+		"/forms/[slug]": [~4,[2]],
+		"/forms/[slug]/account": [~5,[2]],
+		"/forms/[slug]/appearance": [~6,[2]],
+		"/forms/[slug]/display": [~7,[2]],
+		"/forms/[slug]/notifications": [~8,[2]]
 	};
 
 export const hooks = {
