@@ -1,0 +1,33 @@
+{
+	"name": "cap-shadcn-svelte",
+	"version": "0.0.1",
+	"description": "monorepo for cap-shadcn-svelte",
+	"author": {
+		"name": "Benedikt Hölker"
+	},
+	"private": true,
+	"engines": {
+		"pnpm": ">=9",
+		"node": ">=18"
+	},
+	"packageManager": "pnpm@9.7.1",
+	"license": "MIT",
+	"type": "module",
+	"devDependencies": {
+		"@changesets/cli": "^2.27.1",
+		"@huntabyte/eslint-config": "^0.3.2",
+		"@huntabyte/eslint-plugin": "^0.1.0",
+		"eslint": "^9.0.0",
+		"eslint-plugin-svelte": "^2.37.0",
+		"prettier": "^3.2.5",
+		"prettier-plugin-svelte": "^3.2.2",
+		"prettier-plugin-tailwindcss": "0.5.13",
+		"pretty-quick": "^4.0.0",
+		"simple-git-hooks": "^2.10.0",
+		"svelte": "^4.2.12",
+		"svelte-eslint-parser": "^0.41.0"
+	},
+	"simple-git-hooks": {
+		"pre-commit": "pnpm -r format:staged --staged"
+	}
+}

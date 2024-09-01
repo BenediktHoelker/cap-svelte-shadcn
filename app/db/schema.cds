@@ -15,9 +15,9 @@ entity Authors : cuid, managed {
 }
 
 entity Tasks : managed {
-    key id       : String;
-        title    : String;
-        status   : String;
-        label    : String;
-        priority : String;
+    key id       : String @title: 'ID';
+        title    : String @title: 'Title';
+        status   : String @title: 'Status';
+        label    : String @title: 'Label';
+        priority : String @title: 'Prio';
 }

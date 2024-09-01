@@ -1,7 +1,9 @@
 import cds from '@sap/cds';
 
 const srv = await cds.connect.to('BookshopService');
-const Tasks = srv.entities('eon').Tasks;
+// const Tasks = srv.entities('eon').Tasks;
+
+const { Tasks } = require('#cds-models/bookshop');
 
 export async function load({ url }) {
 	const { searchParams } = url;

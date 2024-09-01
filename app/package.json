@@ -14,34 +14,29 @@
 		"copy-svelte-build": "copyfiles build/**/* gen/srv"
 	},
 	"devDependencies": {
-		"@cap-js/cds-types": "^0.6",
-		"@cap-js/sqlite": "^1",
+		"@cap-js/cds-typer": "^0.25.0",
+		"@cap-js/cds-types": "^0.6.5",
+		"@cap-js/sqlite": "^1.7.3",
 		"@faker-js/faker": "^8.4.1",
-		"@sveltejs/adapter-auto": "^3.0.0",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
-		"@types/eslint": "^9.6.0",
+		"@sveltejs/adapter-auto": "^3.2.4",
+		"@sveltejs/kit": "^2.5.25",
+		"@sveltejs/vite-plugin-svelte": "4.0.0-next.6",
+		"@types/eslint": "^9.6.1",
 		"autoprefixer": "^10.4.20",
-		"eslint": "^9.0.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.36.0",
-		"globals": "^15.0.0",
-		"prettier": "^3.1.1",
-		"prettier-plugin-svelte": "^3.1.2",
-		"prettier-plugin-tailwindcss": "^0.6.5",
-		"svelte": "^5.0.0-next.1",
-		"svelte-check": "^3.6.0",
-		"tailwindcss": "^3.4.9",
-		"typescript": "^5.0.0",
-		"typescript-eslint": "^8.0.0",
-		"vite": "^5.0.3"
+		"globals": "^15.9.0",
+		"svelte": "5.0.0-next.242",
+		"svelte-check": "^3.8.6",
+		"tailwindcss": "^3.4.10",
+		"typescript": "^5.5.4",
+		"typescript-eslint": "^8.3.0",
+		"vite": "^5.4.2"
 	},
 	"type": "module",
 	"dependencies": {
 		"@internationalized/date": "^3.5.5",
-		"@sap/cds": "^8",
+		"@sap/cds": "^8.1.1",
 		"@sap/xsenv": "^5.2.0",
-		"@sap/xssec": "^4.2.1",
+		"@sap/xssec": "^4.2.2",
 		"bits-ui": "^0.21.13",
 		"clsx": "^2.1.1",
 		"cmdk-sv": "^0.0.18",
@@ -53,5 +48,8 @@
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.2.1",
 		"zod": "^3.23.8"
+	},
+	"imports": {
+		"#cds-models/*": "./@cds-models/*/index.js"
 	}
 }
