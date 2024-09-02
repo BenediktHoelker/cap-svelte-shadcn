@@ -12,10 +12,10 @@ export const nodes = [
 	() => import('./nodes/8')
 ];
 
-export const server_loads = [0];
+export const server_loads = [];
 
 export const dictionary = {
-		"/": [3],
+		"/": [~3],
 		"/forms/[slug]": [~4,[2]],
 		"/forms/[slug]/account": [~5,[2]],
 		"/forms/[slug]/appearance": [~6,[2]],

@@ -2,7 +2,7 @@
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { type Actions, fail } from '@sveltejs/kit';
-import { taskFormSchema } from './task-form.svelte';
+import { taskSchema } from '../../(data)/schemas';
 import type { PageServerLoad } from './$types.js';
 import { error } from '@sveltejs/kit';
 
@@ -14,7 +14,7 @@ export const load = async ({ params }: Parameters<PageServerLoad>[0]) => {
 	const [task] = await SELECT.from(Tasks).where({ id });
 
 	if (!task) error(404, 'Task not found');
-	const form = await superValidate(task, zod(taskFormSchema));
+	const form = await superValidate(task, zod(taskSchema));
 
 	return {
 		form
@@ -23,12 +23,18 @@ export const load = async ({ params }: Parameters<PageServerLoad>[0]) => {
 
 export const actions = {
 	default: async (event: import('./$types').RequestEvent) => {
-		const form = await superValidate(event, zod(taskFormSchema));
+		const form = await superValidate(event, zod(taskSchema));
 		if (!form.valid) {
 			return fail(400, {
 				form
 			});
 		}
+
+		// const data = await event.request.formData();
+		// const object = { ID: data.get('id'), title: data.get('title') };
+
+		await UPSERT(form.data).into(Tasks);
+
 		return {
 			form
 		};

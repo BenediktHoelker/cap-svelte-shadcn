@@ -1,6 +1,6 @@
 import cds from '@sap/cds';
 
-const srv = await cds.connect.to('BookshopService');
+// const srv = await cds.connect.to('BookshopService');
 // const Tasks = srv.entities('eon').Tasks;
 import { Tasks } from '#cds-models/eon';
 

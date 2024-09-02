@@ -1,27 +1,20 @@
 {
 	"/": [
-		"src/routes/+layout.server.ts",
-		"src/routes/+layout.server.ts"
+		"src/routes/+page.server.ts"
 	],
 	"/forms/[slug]": [
-		"src/routes/forms/[slug]/+page.server.ts",
-		"src/routes/+layout.server.ts",
-		"src/routes/+layout.server.ts"
+		"src/routes/forms/[slug]/+page.server.ts"
 	],
 	"/forms/[slug]/account": [
-		"src/routes/forms/[slug]/account/+page.server.ts",
-		"src/routes/+layout.server.ts"
+		"src/routes/forms/[slug]/account/+page.server.ts"
 	],
 	"/forms/[slug]/appearance": [
-		"src/routes/forms/[slug]/appearance/+page.server.ts",
-		"src/routes/+layout.server.ts"
+		"src/routes/forms/[slug]/appearance/+page.server.ts"
 	],
 	"/forms/[slug]/display": [
-		"src/routes/forms/[slug]/display/+page.server.ts",
-		"src/routes/+layout.server.ts"
+		"src/routes/forms/[slug]/display/+page.server.ts"
 	],
 	"/forms/[slug]/notifications": [
-		"src/routes/forms/[slug]/notifications/+page.server.ts",
-		"src/routes/+layout.server.ts"
+		"src/routes/forms/[slug]/notifications/+page.server.ts"
 	]
 }

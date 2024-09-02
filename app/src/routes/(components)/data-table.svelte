@@ -198,7 +198,7 @@
 		$pageSize && $pageIndex && q.set('pageIndex', String($pageIndex));
 
 		if (browser) {
-			goto(`?${q}`);
+			goto(`/?${q}`);
 		}
 	}
 </script>

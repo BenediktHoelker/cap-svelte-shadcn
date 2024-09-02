@@ -1,19 +1,3 @@
-<script lang="ts" context="module">
-	import { z } from 'zod';
-	export const taskFormSchema = z.object({
-		id: z.string(),
-		title: z.string().nullable(),
-		// .string({ required_error: 'Please enter a valid title.' })
-		// .min(3, 'Title must be at least 3 characters.')
-		// .max(5000, 'Title must not exceed 5000 characters.'),
-		status: z.string().nullable(),
-		label: z.string().nullable(),
-		priority: z.string().nullable()
-	});
-
-	export type TaskFormSchema = typeof taskFormSchema;
-</script>
-
 <script lang="ts">
 	import { type Infer, type SuperValidated, superForm } from 'sveltekit-superforms';
 	import SuperDebug from 'sveltekit-superforms';
@@ -26,32 +10,58 @@
 	import { Textarea } from '$lib/components/ui/textarea/index.js';
 	import { cn } from '$lib/utils.js';
 	import { browser } from '$app/environment';
+	import { type Task, taskSchema } from '../../(data)/schemas.js';
 
-	export let data: SuperValidated<Infer<TaskFormSchema>>;
+	export let data: SuperValidated<Task>;
 
 	const form = superForm(data, {
-		validators: zodClient(taskFormSchema)
+		validators: zodClient(taskSchema),
+		resetForm: false
 	});
 
 	const { form: formData, enhance } = form;
 </script>
 
 <form method="POST" class="space-y-8" use:enhance id="task-form">
+	<input type="hidden" name="id" value={$formData.id} />
+
 	<Form.Field {form} name="title">
 		<Form.Control let:attrs>
-			<Form.Label>Username</Form.Label>
-			<Input placeholder="@shadcn" {...attrs} bind:value={$formData.title} />
+			<Form.Label>Title</Form.Label>
+			<Input
+				placeholder="Please enter an expressive title..."
+				{...attrs}
+				bind:value={$formData.title}
+			/>
 		</Form.Control>
-		<Form.Description>Please enter an expressive title...</Form.Description>
+		<!-- <Form.Description></Form.Description> -->
+		<Form.FieldErrors />
+	</Form.Field>
+
+	<Form.Field {form} name="status">
+		<Form.Control let:attrs>
+			<Form.Label>Status</Form.Label>
+			<Input placeholder="Change status..." {...attrs} bind:value={$formData.status} />
+		</Form.Control>
+		<!-- <Form.Description></Form.Description> -->
 		<Form.FieldErrors />
 	</Form.Field>
 
 	<Form.Field {form} name="label">
 		<Form.Control let:attrs>
 			<Form.Label>Label</Form.Label>
-			<Input placeholder="@shadcn" {...attrs} bind:value={$formData.label} />
+			<Input placeholder="Add labels..." {...attrs} bind:value={$formData.label} />
 		</Form.Control>
-		<Form.Description>Add labels...</Form.Description>
+		<!-- <Form.Description></Form.Description> -->
+		<Form.FieldErrors />
+	</Form.Field>
+
+	<Form.Field {form} name="priority">
+		<Form.Control let:attrs>
+			<Form.Label>Priority</Form.Label>
+			<Input placeholder="Set priority..." {...attrs} bind:value={$formData.priority} />
+		</Form.Control>
+		<!-- <Form.Description></Form.Description> -->
 		<Form.FieldErrors />
 	</Form.Field>
 

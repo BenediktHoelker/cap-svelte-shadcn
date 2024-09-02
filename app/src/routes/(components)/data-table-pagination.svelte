@@ -8,8 +8,6 @@
 	import * as Select from '$lib/components/ui/select';
 	import { Button } from '$lib/components/ui/button';
 
-	import { goto } from '$app/navigation';
-
 	export let tableModel: TableViewModel<Task>;
 
 	const { pageRows, pluginStates, rows } = tableModel;
