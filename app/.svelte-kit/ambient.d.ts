@@ -40,7 +40,6 @@ declare module '$env/static/private' {
 	export const VSCODE_IPC_HOOK_CLI: string;
 	export const npm_package_json: string;
 	export const NVM_INC: string;
-	export const NODE_OPTIONS: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const npm_config_userconfig: string;
@@ -76,7 +75,6 @@ declare module '$env/static/private' {
 	export const npm_lifecycle_event: string;
 	export const NODE_PATH: string;
 	export const LESSCLOSE: string;
-	export const VSCODE_INSPECTOR_OPTIONS: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const npm_config_globalconfig: string;
 	export const npm_config_init_module: string;
@@ -138,7 +136,6 @@ declare module '$env/dynamic/private' {
 		VSCODE_IPC_HOOK_CLI: string;
 		npm_package_json: string;
 		NVM_INC: string;
-		NODE_OPTIONS: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
 		VSCODE_GIT_ASKPASS_NODE: string;
 		npm_config_userconfig: string;
@@ -174,7 +171,6 @@ declare module '$env/dynamic/private' {
 		npm_lifecycle_event: string;
 		NODE_PATH: string;
 		LESSCLOSE: string;
-		VSCODE_INSPECTOR_OPTIONS: string;
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		npm_config_globalconfig: string;
 		npm_config_init_module: string;

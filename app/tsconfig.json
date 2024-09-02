@@ -13,7 +13,9 @@
 		"module": "ESNext",
 		"moduleResolution": "bundler",
 		"paths": {
-			"#cds-models/*": ["./@cds-models/*/index.ts"]
+			"#cds-models/*": ["./@cds-models/*/index.ts"],
+			"$lib": ["./src/lib"],
+			"$lib/*": ["./src/lib/*"]
 		}
 	}
 }

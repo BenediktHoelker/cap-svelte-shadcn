@@ -5,7 +5,7 @@
 
 	import { type Writable } from 'svelte/store';
 	import { getContext } from 'svelte';
-	import type { Task } from '../../tasks/(data)/schemas.js';
+	import type { Task } from '../../(data)/schemas.js';
 	import InfiniteScroll from './infinite-scroll.svelte';
 	import { goto } from '$app/navigation';
 
