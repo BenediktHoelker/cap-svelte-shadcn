@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { get, type Writable } from 'svelte/store';
-	import { getContext } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
+	import { page } from '$app/stores';
 
 	import { Render, Subscribe, createRender, createTable } from 'svelte-headless-table';
 	import {
@@ -31,16 +32,23 @@
 	const tasks: Writable<Task[]> = getContext('tasks');
 	const taskItemCount: Writable<number> = getContext('taskItemCount');
 
+	const urlParams = $page.url.searchParams;
+	const initialPageIndex = Number(urlParams.get('pageIndex') || 1);
+	const initialPageSize = Number(urlParams.get('pageSize') || 50);
+
 	const table = createTable(tasks, {
 		select: addSelectedRows(),
 		sort: addSortBy({
 			serverSide: true,
 			toggleOrder: ['asc', 'desc']
+			// initialSortKeys: urlParams.get('order_by')
 		}),
 		// ToDo: serverItemCount = Total of server-items => load initially
 		page: addPagination({
 			serverSide: true,
-			serverItemCount: taskItemCount
+			serverItemCount: taskItemCount,
+			initialPageSize,
+			initialPageIndex
 		}),
 		filter: addTableFilter({
 			serverSide: true
@@ -179,14 +187,15 @@
 	const { filterValues } = pluginStates.colFilter;
 	const { pageSize, pageIndex } = pluginStates.page;
 
+	const q = new URLSearchParams();
+
 	$: {
-		const q = new URLSearchParams();
 		$sortKeys[0] && q.set('order_by', $sortKeys[0].id);
 		$sortKeys[0] && q.set('order_dir', $sortKeys[0].order);
 		$filterValue && q.set('search', $filterValue);
 		// $filterValues && q.set('filter', $filterValues);
-		$pageSize && q.set('limit', String($pageSize));
-		$pageSize && $pageIndex && q.set('skip', String($pageSize * $pageIndex));
+		$pageSize && q.set('pageSize', String($pageSize));
+		$pageSize && $pageIndex && q.set('pageIndex', String($pageIndex));
 
 		if (browser) {
 			goto(`?${q}`);

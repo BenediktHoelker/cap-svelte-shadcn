@@ -6,7 +6,7 @@ import type { PageServerLoad } from './$types.js';
 import cds from '@sap/cds';
 import { error } from '@sveltejs/kit';
 
-const srv = await cds.connect.to('BookshopService');
+// const srv = await cds.connect.to('BookshopService');
 import { Tasks } from '#cds-models/eon';
 
 export const load: PageServerLoad = async ({ params }) => {

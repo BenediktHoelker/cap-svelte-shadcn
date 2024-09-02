@@ -2,15 +2,15 @@ import cds from '@sap/cds';
 
 const srv = await cds.connect.to('BookshopService');
 // const Tasks = srv.entities('eon').Tasks;
-
-const { Tasks } = require('#cds-models/bookshop');
+import { Tasks } from '#cds-models/eon';
 
 export async function load({ url }) {
 	const { searchParams } = url;
 	const search = searchParams.get('search') ? '%' + searchParams.get('search') + '%' : '%';
 	// const filter = searchParams.get('filter') ? '%' + searchParams.get('filter') + '%' : '%';
-	const skip = Number(searchParams.get('skip')) || 0;
-	const top = Number(searchParams.get('limit')) || Number(searchParams.get('top')) || 10;
+	const skip =
+		Number(searchParams.get('pageSize')) * (Number(searchParams.get('pageIndex')) - 1) || 0;
+	const top = Number(searchParams.get('pageSize')) || 50;
 	const orderBy = searchParams.get('order_by') || 'id';
 	const orderDir = searchParams.get('order_dir') || 'asc';
 

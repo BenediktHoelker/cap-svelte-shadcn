@@ -36,3 +36,13 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+### Symlink for types
+
+After pnpm install recreate symlink for cds types: https://github.com/cap-js/cds-types?tab=readme-ov-file
+=> Must be created in app/node_modules, not in node_modules => pnpm Speciality, cds is using npm most of the time
+=> probably a problem between pnpm and cds
+
+### CDS types need to be ESModules
+
+![alt text](image.png)

@@ -17,8 +17,6 @@
 	const { hasNextPage, hasPreviousPage, pageIndex, pageCount, pageSize } = pluginStates.page;
 
 	const { selectedDataIds } = pluginStates.select;
-
-	pageSize.set(50);
 </script>
 
 <div class="flex items-center justify-between px-2">
