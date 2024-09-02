@@ -3,7 +3,6 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { type Actions, fail } from '@sveltejs/kit';
 import { profileFormSchema } from './profile-form.svelte';
 import type { PageServerLoad } from './$types.js';
-import cds from '@sap/cds';
 import { error } from '@sveltejs/kit';
 
 // const srv = await cds.connect.to('BookshopService');
